@@ -1,0 +1,889 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Styled Components</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d9646726-9219-4314-b8c9-ac5cf32bf896" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="Styled%20Components%20d964672692194314b8c9ac5cf32bf896/atom.png"/></div><h1 class="page-title">Styled Components</h1><p class="page-description"></p></header><div class="page-body"><p id="4c75593e-f99a-4230-8163-04d7a686486e" class="">Styled Components, React tabanlı bir CSS-in-JS (CSS-in-JavaScript) kütüphanesidir. Bu yaklaşım, React bileşenlerini oluştururken stil tanımlamalarını JavaScript kodu içine entegre etmeyi amaçlar.</p><p id="5fb571ed-9489-4220-9da3-54d7aac6d238" class="">Styled Components kullanmanın bazı avantajları şunlar olabilir:</p><ol type="1" id="251aaba0-2e8a-4544-a81e-fc236fcc7af4" class="numbered-list" start="1"><li><strong>İzole Stil</strong>: Her bileşen kendi stilini içerir ve başka bileşenlerin stilleri ile karışmaz. Bu, uygulama genelinde stil çatışmalarını en aza indirir. Sadece yüklenen componentlerin stillerini çalıştırır.</li></ol><ol type="1" id="8edbdd65-80e5-47e3-9929-6c11225ce12f" class="numbered-list" start="2"><li><strong>Dinamik Stiller</strong>: JavaScript kodu içinde stil tanımlayarak, bileşenlerinizin durumuna, prop&#x27;larına veya diğer verilere göre dinamik olarak stil uygulayabilirsiniz.</li></ol><ol type="1" id="d63ce5aa-0a20-4a50-829b-4afe1cc86fb6" class="numbered-list" start="3"><li><strong>Kod Okunabilirliği</strong>: Bileşenin stilini, bileşenin kendisiyle aynı dosyada tutarak kodunuzun daha okunabilir ve bakımı daha kolay hale gelmesini sağlayabilirsiniz.</li></ol><ol type="1" id="11a2e195-6483-4d73-ac99-7d0af10962c1" class="numbered-list" start="4"><li><strong>Component-Based Styling</strong>: Stil tanımlamalarını bileşen seviyesinde yaparak, bileşenlerinizin yeniden kullanılabilirliğini ve modülerliğini artırabilirsiniz.</li></ol><ol type="1" id="02d1a79e-9ef6-4f6d-b318-723b429cf16f" class="numbered-list" start="5"><li><strong>Önişlemci Desteği</strong>: Styled Components, Sass veya Less gibi önişlemci dilleri kullanma ihtiyacını ortadan kaldırır. Stil tanımlamalarını doğrudan JavaScript içinde yapabilirsiniz.</li></ol><p id="a37226b9-271e-4533-b47c-40a49a853597" class="">
+</p><h3 id="850bc1aa-3456-4f9c-805f-f10b8d88a755" class="">Styled Component Oluşturmak</h3><p id="0a7d29a1-7c49-4b37-affb-3a3455f52b1f" class="">Styled Components, React&#x27;ta stilize edilmiş bileşenler oluşturmanıza olanak tanır. Örneğin, <code><strong>styled.button</strong></code> kullanarak, her çağrıldığında <code><strong>&lt;button&gt;</strong></code> oluşturan bir bileşen oluşturabilirsiniz. İçine stil metotları ekleyerek özelleştirilmiş bileşenler yaratırsınız. Bu yaklaşım, bileşenlerinizi daha düzenli ve kolay yönetilebilir hale getirir. <code>styled.div</code> olarak kullandığımızda component her çağrıldığında bize <code>&lt;div&gt;</code> html etiketi döndürecektir.</p><pre id="1a35d875-92a0-427d-848e-235fb89e14fe" class="code"><code>import styled from &#x27;styled-components&#x27;;
+
+const DeleteButtonStyled = styled.button`
+	display: inline-block;
+  padding: 4px 8px;
+  border: 2px solid gray;
+  background-color: red;
+`;
+export default function App() {
+	return (
+    &lt;DeleteButtonStyled&gt;Danger Button&lt;/DeleteButtonStyled&gt;
+  );
+}
+
+export default DeleteButton;</code></pre><p id="410362cc-1b8b-4b59-805a-0507abb9f560" class="">Output :</p><figure id="9614809b-3b62-4750-a961-c7a88f78c8ec" class="image"><a href="Styled%20Components%20d964672692194314b8c9ac5cf32bf896/Opera_Anlk_Grnt_2023-08-25_000134_127.0.0.1.png"><img style="width:46px" src="Styled%20Components%20d964672692194314b8c9ac5cf32bf896/Opera_Anlk_Grnt_2023-08-25_000134_127.0.0.1.png"/></a></figure><pre id="9e8a1792-d49e-48f7-9dc1-0d6ef8f1612a" class="code"><code>import styled from &#x27;styled-components&#x27;;
+import Logo from &#x27;./logo.png&#x27;;
+
+const Image = styled.img`
+	max-width: 120px;
+`;
+
+export default function App() {
+	return (
+      &lt;Image src={Logo} /&gt;
+    );
+  }
+}
+
+// Image componenti img html etiketi oluşturacağı için direk src attribute &#x27;sini 
+// ekleyebiliriz.</code></pre><h3 id="dcd78647-7077-4b56-9f30-19802ad7747d" class="">Props almak ve kullanmak</h3><p id="d9d82a5e-8365-4bb2-8a4e-38698b682e12" class="">Styled componentlere props değerleri göndererek dinamik bir şekilde stillerde değişiklik yapabiliriz. Styled componentler girilen propslara otomatik olarak içeriden ulaşabilir şekilde tasarlanıştır. Aşağıdaki örnekte <code>Button </code>adında bir styled component oluşturduk ve <code>background-color</code> özelliğinde eğer <code>$danger</code> adında bir props var ise rengi <code>red</code> yok ise <code>white</code> olacağını belirttik ve ardından componenti oluşturup props olarak <code>$danger</code> gönderdik.</p><pre id="d2667c48-1d1b-4fc8-8735-1a37256f4da5" class="code"><code>import styled from &#x27;styled-components&#x27;;
+
+const Button = styled.button`
+  background-color: ${(props) =&gt; props?.$danger ? &#x27;red&#x27; : &#x27;white&#x27;};
+`;
+
+export default function App() {
+	return (
+    &lt;Button $danger&gt;Danger Button&lt;/Button&gt;
+  );
+}</code></pre><p id="e53fc522-3a99-491d-bde2-5860a059edeb" class="">Props ‘un içeriğini farklı yöntemlerle de dışarıya çıkarabiliriz.</p><pre id="96306e29-5986-4b86-be3e-d0ce8bbf5d00" class="code"><code>const Button = styled.button`
+  background-color: ${({ $danger }) =&gt; $danger ? &#x27;red&#x27; : &#x27;white&#x27;};
+`;
+
+const Button = styled.button`
+  background-color: ${({ $danger : colorDanger }) =&gt; colorDanger  ? &#x27;red&#x27; : &#x27;white&#x27;};
+`;</code></pre><h3 id="14b353b6-30b7-4fcb-9527-49f82cfcb951" class=""><strong><strong>Extending</strong></strong></h3><p id="2c4745f2-3613-49ba-a6f9-d110315394ae" class="">Bir styled component ‘in özelliklerini türeterek yeni bir styled component oluşturmaya yarar. Farklı bir component ‘de ki birçok stil özelliğinin aynısına ihtiyacınız var ise bunları kopyalayıp yeni bir styled component oluşturabiliriz.</p><pre id="3f6874cb-5229-48e1-a166-cb6c8551067e" class="code"><code>import styled from &#x27;styled-components&#x27;;
+
+const Button = styled.button`
+  display: flex;
+	flex-direction: row;
+	justify-content: center;
+	color: red;
+`;
+
+const ExtendButton = styled(Button)`
+	color: yellow;
+`;
+
+// ExtendButton adından yeni bir styled component oluşturduk ve Button adındaki styled
+// componentin tüm özelliklerini almasını belirttik (extend). Artık ExtendButton tüm
+// özellikleri alacak ve sadece color: yellow olarak değişecek.</code></pre><h3 id="6b97fd77-e88e-4328-b1ad-bddc3a23916a" class="">Selector ve Alt Class Stillendirme</h3><p id="b16c3ec9-e892-4d56-8f28-5bc87a0b30a7" class="">Styled component ‘de Scss tarzında alt class ‘ları stillendirebilir veya hover, active, focus vb. özellikleri kullanabiliriz.</p><pre id="a6084c1a-9214-40c5-89bf-493bedd6eb7e" class="code"><code>import styled from &#x27;styled-components&#x27;;
+
+const Container = styled.div`
+  display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	.title {
+		font-size: 24px;
+		font-weight: bold;
+		color: red;
+
+		&amp;:hover {
+			color: blue;
+		}
+	}
+`;
+
+export default function App() {
+	return (
+    &lt;Container&gt;
+				&lt;h1 className=&quot;title&quot;&gt;Hellow Styled Components&lt;/h1&gt;
+		&lt;/Container&gt;
+  );
+}
+
+// Container div &#x27;inin altında bulunan title class &#x27;ına ait html etiktinini stillendirdik.</code></pre><h3 id="d92b4f4d-2e8b-482a-9153-7a2bafb9fc2f" class="">HTML Tag Attributes</h3><p id="ff1ee858-c10b-4fdf-a4f6-f3d36c6e1f77" class="">Oluşturduğumuz html etiketlerine styled componentlerimizden yeni <code>attribute </code>‘lar ekleyebilir veya düzenleyebiliriz. <code>attrs </code>bir obje alır ve içerisinde <code>attribute </code>‘larımızı tanımlayabiliriz.</p><pre id="ef8a9c79-a490-4aaa-b9e6-9b3d8be95757" class="code"><code>import styled from &#x27;styled-components&#x27;;
+
+const Button = styled.button.attrs({type:&#x27;submit&#x27;})`
+  display: flex;
+	flex-direction: row;
+	justify-content: center;
+	color: red;
+`;
+
+export default function App() {
+	return (
+    &lt;Button&gt;Gönder&lt;/Button &gt;
+  );
+}
+
+// button html etiketinin tipi artık submit olacaktır.</code></pre><pre id="3d7207bd-f2b5-4396-b370-715f0ffec295" class="code"><code>import styled from &#x27;styled-components&#x27;;
+
+const Link = styled.a.attrs({href:&#x27;https://github.com/burakkrt&#x27;, target:&#x27;_blank&#x27;})`
+	color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+`;
+
+export default function App() {
+	return (
+    &lt;Link&gt;Beni takip et&lt;/Link &gt;
+  );
+}
+
+// Link componentine href ve target attribute &#x27;lerini ekledik.</code></pre><h3 id="0f917e21-a47d-4006-996e-39345233d071" class="">HTML Tag Props Almak</h3><p id="47389ea6-9f3a-45ce-9cf1-2aecdd88ddc5" class="">Stil işlemelerinde propslara erişebildiğimiz gibi attrs işlemleride bize otomatik props değerlerini gönderir. Bu isteğe bağlıdır kullanılabilir.</p><pre id="0d76fb03-dafb-4364-87e2-86d49960ef27" class="code"><code>import styled from &#x27;styled-components&#x27;;
+
+const Link = styled.a.attrs((porps) =&gt; 
+({href:props?.link || &#x27;https://github.com/burakkrt&#x27;, target:&#x27;_blank&#x27;}))`
+	color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+`;
+
+export default function App() {
+	return (
+    &lt;Link link=&quot;https://www.linkedin.com/in/kurt-burak/&quot;&gt;Beni takip et&lt;/Link &gt;
+  );
+}
+
+// Link componentine link adında bir props gönderdiğimizde href etiketi artık bu
+// değeri alacak, eğer link adında props göndermek isek github linkini ekleyecek.</code></pre><h3 id="c0aefbde-b928-4f46-a772-d1224ea75c10" class="">Keyframes ve Animate</h3><pre id="b635c5e6-1526-4cc2-91c3-b00f9f357fac" class="code"><code>import styled, {keyframes} from &#x27;styled-components&#x27;;
+
+const rotate = keyframes`
+	from {
+		transfrom: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+`;
+
+const Kutu = styled.div`
+	width: 50px;
+	height: 50px;
+	background-color: red;
+	border-radius: 15px
+	position: relative;
+	animaion: ${rotate} 5s linear infinite;
+`;
+
+export default function App() {
+	return (
+    &lt;Kutu/&gt;
+  );
+}
+</code></pre><h3 id="0fd1c508-a8d1-41a1-824e-b5b07c875ed1" class="">ThemeProvider</h3><p id="a14b172c-9bd4-4550-ab43-ccb89f73d346" class="">Tüm bileşenlerimizi sarmalayan ThemeProvider componenti ile alt bileşenlerde erişebileceğimiz theme props ‘u oluşturabilir ve bu props ‘un özelliklerine göre stillerimizi dinamik hale getirebiliriz.</p><p id="18d70f3d-376b-467e-b8d9-e3c4267e0865" class=""><code>&lt;ThemeProvider&gt;</code> ‘ı kullanmak için en üst componentte tüm componentleri sarmalayacak şekilde tanımlarız ve içerisine <code>theme</code> olarak obje türünde bir <code>props</code> alır. Arından alt bileşenlerde <code>props.theme</code> olarak çağırıp kullanabiliriz.</p><pre id="2d3f409c-eeae-4578-9dc5-d7b748afb4e3" class="code"><code>import styled, {ThemeProvider} from &#x27;styled-components&#x27;;
+
+// props olarak gönderdiğimiz theme nın içerisinden dark.background &#x27;u alıyoruz.
+export const CustomButton = styled`
+  background-color: ${(props) =&gt; props.theme.dark.background};
+`;
+
+// Provider &#x27;a props olarak gönderilecek objeyi tanımlıyoruz.
+const theme = {
+  dark: {
+    background: &quot;#121212&quot;,
+    text: &quot;#fff&quot;
+  },
+  light: {
+    background: &quot;#fff&quot;,
+    text: &quot;#121212&quot;
+  }
+};
+
+// en üst bileşende alt componentleri sarmalayarak theme props &#x27;unu gönderiyoruz.
+function App() {
+	return (
+    &lt;&gt;
+			&lt;ThemeProvider theme={theme}&gt;
+	      &lt;CustomButton&gt;Test&lt;/CustomButton&gt;
+			&lt;/ThemeProvider&gt;
+    &lt;/&gt;
+  )
+}</code></pre><h3 id="32dd36b6-68f1-4cc4-b178-ed6d33cff240" class="">GlobalStyle</h3><p id="fca8a879-d828-4c45-af85-b3b6ffb764c1" class="">Stil componentleri ilgili component yüklendiği zaman çalışan birbirinden bağımsız bileşenlerdir. Buda diğer stil sınıfları ile çakışmasını önlerken tüm ihtiyac olunan stillerin yüklenmesini sağlayarak performansı arttır. Componentlere özel stil bileşenlerinden farklı olarak tüm proje genelinde kullanımasını istediğimiz stilleri createGlobalStyle componenti ile tanımlarız.</p><pre id="03fd90f4-46d9-4662-86f9-7637fd649323" class="code"><code>import {createGlobalStyle} from &#x27;styled-components&#x27;;
+// Aşağıdaki örnekte bir önceki konudaki themeprovider lar tanımlanmış varsayılır.
+
+// createGlobalStyle bileşeninden yeni bir GlobalStyled componenti oluşturduk.
+const GlobalStyle = createGlobalStyle`
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		background-color: ${(props) =&gt; props.theme.dark.background}
+	}
+`;
+
+// GlobalStyle &#x27;yi en üst bileşende themeProvider &#x27;ın altında çağırığ çalıştırdık. 
+// Farklı yerlerde de kullanabilabilir ama en iyi verim almak için burada çağırdık.
+function App() {
+	return (
+    &lt;&gt;
+			&lt;ThemeProvider theme={theme}&gt;
+				&lt;GlobalStyle/&gt;
+	      &lt;CustomButton&gt;Test&lt;/CustomButton&gt;
+			&lt;/ThemeProvider&gt;
+    &lt;/&gt;
+  )
+}</code></pre></div></article></body></html>
